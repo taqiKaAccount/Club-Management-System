@@ -179,6 +179,7 @@ class ClubCreation(QtWidgets.QMainWindow):
         self.CreateClubButton.clicked.connect(self.add_Club)
 
     def add_Club():
+        print("hi")
         
 class ClubEvent(QtWidgets.QMainWindow):
     def __init__(self):
