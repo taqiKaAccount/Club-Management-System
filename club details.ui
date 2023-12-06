@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1126</width>
-    <height>858</height>
+    <height>546</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -100,7 +100,7 @@ p, li { white-space: pre-wrap; }
      <string>Members</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_2">
+   <widget class="QPushButton" name="FundsButton">
     <property name="geometry">
      <rect>
       <x>310</x>
@@ -113,7 +113,7 @@ p, li { white-space: pre-wrap; }
      <string>Club Funds (admin)</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="MembersButton">
     <property name="geometry">
      <rect>
       <x>610</x>

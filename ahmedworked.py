@@ -175,6 +175,10 @@ class ClubCreation(QtWidgets.QMainWindow):
         super(ClubCreation,self).__init__()
         uic.loadUi("Club_Registration_4.ui",self)
         self.show()
+
+        self.CreateClubButton.clicked.connect(self.add_Club)
+
+    def add_Club():
         
 class ClubEvent(QtWidgets.QMainWindow):
     def __init__(self):
