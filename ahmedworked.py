@@ -178,8 +178,55 @@ class ClubCreation(QtWidgets.QMainWindow):
 
         self.CreateClubButton.clicked.connect(self.add_Club)
 
-    def add_Club():
+    def add_Club(self):
         print("hi")
+        #making connection
+        connection_string = f'DRIVER={{ODBC Driver 17 for SQL Server}};SERVER={server};DATABASE={database};Trusted_Connection=yes;'
+        connection = pyodbc.connect(connection_string)
+        cursor = connection.cursor()
+
+        # creating a static ID variable
+        if not hasattr(ClubCreation, "StaticClubID"):
+            ClubCreation.StaticClubID = 0
+
+
+        #reading the inputs from the line edits
+        # id = self.itemAddID.text()
+        id = ClubCreation.StaticClubID+1
+        name = self.itemAddName.text()
+        Description =  self.ClubDescription.text()
+        # qtyavailable = self.itemqtyAvailable.text() 
+        # price = self.itemAddPrice.text()
+       
+        
+
+        #writing inserting into table using query
+        insertitemQuery = """
+        INSERT INTO Clubs ([ClubId],[ClubName], [ClubDescription])
+        VALUES (?,?,?)
+        """
+
+        #executing the query
+        cursor.execute(insertitemQuery,(id,name,Description))
+
+        #commiting the query to database
+        connection.commit()
+
+        # Clear the line edits
+        self.itemqtyAvailable.clear()
+        self.itemAddColour.clear()
+        self.itemAddPrice.clear()
+        self.itemAddName.clear()
+        self.itemAddID.clear()
+
+        self.tableWidget.clearContents()
+        self.tableWidget.setRowCount(0)  # Reset row count
+
+        # Repopulate the table with the updated data
+        self.populate_table()
+
+        connection.close() 
+    
         
 class ClubEvent(QtWidgets.QMainWindow):
     def __init__(self):
