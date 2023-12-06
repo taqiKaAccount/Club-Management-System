@@ -27,7 +27,7 @@ class MainWindow(QtWidgets.QMainWindow):
         
         self.pushButton.clicked.connect(lambda:self.CreateAcc(1)) #admin
         self.pushButton_2.clicked.connect(lambda:self.CreateAcc(2)) #student
-        self.pushButton_3.clicked.connect(lambda:self.DashBoard) #login/dashboard
+        self.LoginButton.clicked.connect(lambda:self.DashBoard) #login/dashboard
         
 
 
