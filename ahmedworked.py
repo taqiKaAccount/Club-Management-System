@@ -213,11 +213,11 @@ class ClubCreation(QtWidgets.QMainWindow):
         connection.commit()
 
         # Clear the line edits
-        self.itemqtyAvailable.clear()
-        self.itemAddColour.clear()
-        self.itemAddPrice.clear()
+        # self.itemqtyAvailable.clear()
+        # self.itemAddColour.clear()
+        # self.itemAddPrice.clear()
         self.itemAddName.clear()
-        self.itemAddID.clear()
+        self.ClubDescription.clear()
 
         self.tableWidget.clearContents()
         self.tableWidget.setRowCount(0)  # Reset row count
