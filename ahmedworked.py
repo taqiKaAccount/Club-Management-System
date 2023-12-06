@@ -154,13 +154,13 @@ class ClubDetails(QtWidgets.QMainWindow):
         uic.loadUi("club details.ui",self)
         self.show()
         
-        self.pushButton.clicked.connect(self.MembersCall)
+        self.MembersButton.clicked.connect(self.MembersCall)
         
         if admin == True: #once again global admin used.
-            self.pushButton_2.setEnabled(True)
-            self.pushButton_2.clicked.connect(self.showInputDialog)
+            self.FundsButton.setEnabled(True)
+            self.FundsButton.clicked.connect(self.showInputDialog)
         else:
-            self.pushButton_2.setEnabled(False)
+            self.FundsButton.setEnabled(False)
     
     def MembersCall(self):
         self.new_form = ClubMembers()
