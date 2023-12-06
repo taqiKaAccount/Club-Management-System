@@ -247,19 +247,6 @@
      <string>Email</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="PushButton_Back">
-    <property name="geometry">
-     <rect>
-      <x>150</x>
-      <y>730</y>
-      <width>93</width>
-      <height>28</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Back</string>
-    </property>
-   </widget>
    <widget class="QPushButton" name="PushButton_OK">
     <property name="geometry">
      <rect>
@@ -270,7 +257,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>OK</string>
+     <string>Create</string>
     </property>
    </widget>
    <zorder>groupBox</zorder>
@@ -283,7 +270,6 @@
    <zorder>label_6</zorder>
    <zorder>label_7</zorder>
    <zorder>label_8</zorder>
-   <zorder>PushButton_Back</zorder>
    <zorder>PushButton_OK</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
