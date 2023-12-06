@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1096</width>
-    <height>845</height>
+    <height>631</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -59,74 +59,12 @@
       <x>100</x>
       <y>270</y>
       <width>911</width>
-      <height>501</height>
+      <height>331</height>
      </rect>
     </property>
     <property name="title">
      <string>Club Details</string>
     </property>
-    <widget class="QRadioButton" name="radioButton">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>460</y>
-       <width>111</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Club Joinable?</string>
-     </property>
-    </widget>
-    <widget class="QTableView" name="tableView">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>310</y>
-       <width>881</width>
-       <height>101</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_4">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>290</y>
-       <width>55</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Admins:</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pushButton">
-     <property name="geometry">
-      <rect>
-       <x>220</x>
-       <y>420</y>
-       <width>93</width>
-       <height>28</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Add</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pushButton_2">
-     <property name="geometry">
-      <rect>
-       <x>570</x>
-       <y>420</y>
-       <width>93</width>
-       <height>28</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Remove</string>
-     </property>
-    </widget>
     <widget class="QPlainTextEdit" name="plainTextEdit">
      <property name="geometry">
       <rect>
@@ -140,8 +78,8 @@
     <widget class="QPushButton" name="CreateClubButton">
      <property name="geometry">
       <rect>
-       <x>750</x>
-       <y>470</y>
+       <x>730</x>
+       <y>280</y>
        <width>93</width>
        <height>28</height>
       </rect>
