@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1127</width>
+    <width>962</width>
     <height>856</height>
    </rect>
   </property>
@@ -123,13 +123,91 @@ p, li { white-space: pre-wrap; }
      <string>Member List</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="SetPresident">
+    <property name="geometry">
+     <rect>
+      <x>320</x>
+      <y>670</y>
+      <width>101</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Make President</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="SetVPresident">
+    <property name="geometry">
+     <rect>
+      <x>472</x>
+      <y>670</y>
+      <width>111</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Make VPresident</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="SetSecretary">
+    <property name="geometry">
+     <rect>
+      <x>632</x>
+      <y>670</y>
+      <width>101</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Make Secretary</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton">
+    <property name="geometry">
+     <rect>
+      <x>790</x>
+      <y>220</y>
+      <width>93</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Remove</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_2">
+    <property name="geometry">
+     <rect>
+      <x>790</x>
+      <y>270</y>
+      <width>93</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Remove</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_3">
+    <property name="geometry">
+     <rect>
+      <x>790</x>
+      <y>320</y>
+      <width>93</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Remove</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1127</width>
+     <width>962</width>
      <height>26</height>
     </rect>
    </property>
