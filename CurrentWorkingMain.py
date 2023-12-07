@@ -16,7 +16,37 @@ if use_windows_authentication:
     connection_string = f'DRIVER={{ODBC Driver 17 for SQL Server}};SERVER={server};DATABASE={database};Trusted_Connection=yes;'
 else:
     connection_string = f'DRIVER={{ODBC Driver 17 for SQL Server}};SERVER={server};DATABASE={database};UID={username};PWD={password}'
+def showTable(tableName):
+    # displays the table you want on the terminal
+    connection = pyodbc.connect(connection_string)
+    cursor = connection.cursor()
+    # Execute the SQL query to get the current database name
+    table_name = tableName
 
+    # SQL query to select all records from the specified table
+    table_query = f"SELECT * FROM {table_name}"
+
+    try:
+        # Execute the SQL query
+        cursor.execute(table_query)
+
+        # Fetch all records from the table
+        rows = cursor.fetchall()
+
+        # Display the records
+        if rows:
+            print(f"Contents of '{table_name}':")
+            for row in rows:
+                print(row)
+        else:
+            print(f"No records found in '{table_name}'")
+
+    except pyodbc.Error as e:
+        print(f"Error fetching data from '{table_name}': {e}")
+
+    # Close the cursor and connection
+    cursor.close()
+    connection.close()
 
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
@@ -37,6 +67,9 @@ class MainWindow(QtWidgets.QMainWindow):
         entered_ID = self.EnterID.text()
         entered_password = self.EnterPassword.text()
         global admin
+        # so we can use the logged in user to show details
+        global UserIDLoggedIn
+        UserIDLoggedIn = entered_ID
 
         # Check if the entered credentials belong to an admin
         if self.check_admin_credentials(entered_ID, entered_password):
@@ -124,6 +157,10 @@ class Registration(QtWidgets.QMainWindow):
                 admin_email = self.Admin_Email.text()
 
                 # Validate inputs if needed
+                if not (admin_id.isdigit() and admin_username and admin_password and '@' in admin_email):
+                    print("Invalid input. Please check your admin details.")
+                    QMessageBox.information(self, "Failure", "Kindly re-Check details")
+                    return  # Exit the function if validation fails
 
                 # Insert data into the Admin table
                 self.insert_admin_data(admin_id, admin_username, admin_password, admin_email)
@@ -137,6 +174,10 @@ class Registration(QtWidgets.QMainWindow):
                 student_batch = self.Student_Batch.text()
 
                 # Validate inputs if needed
+                if not (student_name and student_ID.isdigit() and student_password and '@' in student_email and student_batch.isdigit()):
+                    print("Invalid input. Please check your student details.")
+                    QMessageBox.information(self, "Failure", "Kindly re-Check details")
+                    return  # Exit the function if validation fails
 
                 # Insert data into the Students table (you'll need to implement this)
                 self.insert_student_data(student_name, student_ID, student_password, student_email,student_batch)
