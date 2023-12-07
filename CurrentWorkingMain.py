@@ -367,26 +367,26 @@ class ClubCreation(QtWidgets.QMainWindow):
             club_name = self.itemAddName.text()
             club_ID = self.ItemAddID.text()
             description = self.Clubdescription.text()
-            # admin_email = self.Admin_Email.text()
+            club_funds = self.ClubFundsLine.text()
 
             # Validate inputs if needed
-            if not (club_name and club_ID.isdigit() and description):
+            if not (club_name and club_ID.isdigit() and description and club_funds.isdigit()):
                 print("Invalid input. Please check your club details.")
                 QMessageBox.information(self, "Failure", "Kindly re-Check details")
                 return  # Exit the function if validation fails
 
             # Insert data into the Admin table
-            self.InsertClubDetails(club_ID, club_name, description)
+            self.InsertClubDetails(club_ID, club_name, description, club_funds)
 
-    def InsertClubDetails(self,club_ID, club_name, description):
+    def InsertClubDetails(self,club_ID, club_name, description, club_funds):
         try:
                 connection = pyodbc.connect(connection_string)
                 cursor = connection.cursor()
 
                 # Assuming the Admin table has columns AdminID, Username, Password
                 # You may need to adjust this query based on your actual table structure
-                query = f"INSERT INTO Clubs ([ClubID], [ClubName], [description]) VALUES (?, ?, ?)"
-                cursor.execute(query, (club_ID, club_name, description))
+                query = f"INSERT INTO Clubs ([ClubID], [ClubName], [description], [Funds]) VALUES (?, ?, ?, ?)"
+                cursor.execute(query, (club_ID, club_name, description, club_funds))
                 connection.commit()
 
                 QMessageBox.information(self, "Success", "Club created successfully!")
@@ -415,7 +415,7 @@ class ClubMembers(QtWidgets.QMainWindow):
         super(ClubMembers,self).__init__()
         uic.loadUi("club_members_screen.ui",self)
         self.show()
-        
+
 app = QtWidgets.QApplication(sys.argv)
 window = MainWindow()
 window.show()

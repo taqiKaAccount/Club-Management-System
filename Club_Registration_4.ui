@@ -119,7 +119,7 @@ p, li { white-space: pre-wrap; }
      <string>Club Funds:</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit_3">
+   <widget class="QLineEdit" name="ClubFundsLine">
     <property name="geometry">
      <rect>
       <x>260</x>
