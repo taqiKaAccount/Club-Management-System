@@ -10,7 +10,6 @@ use_windows_authentication = True  # Set to True to use Windows Authentication
 username = ''  # Specify a username if not using Windows Authentication
 password = ''  # Specify a password if not using Windows Authentication
 
-
 # Create the connection string based on the authentication method chosen
 if use_windows_authentication:
     connection_string = f'DRIVER={{ODBC Driver 17 for SQL Server}};SERVER={server};DATABASE={database};Trusted_Connection=yes;'
@@ -57,7 +56,7 @@ def addFunds():
         cursor = connection.cursor()
 
         # Alter table to add the 'Funds' column
-        alter_query = '''ALTER TABLE [dbo].[Clubs]
+        alter_query = '''ALTER TABLE [dbo].[Events]
                         ADD Funds DECIMAL(10, 2)'''
 
         cursor.execute(alter_query)
@@ -83,6 +82,10 @@ class MainWindow(QtWidgets.QMainWindow):
         self.LoginButton.clicked.connect(self.login)
 
         showTable("Admin")
+        showTable("Event_Admin")
+        showTable("Clubs")
+        # showTable("")
+
         
         
     def CreateAcc(self, enable_num):
@@ -403,6 +406,68 @@ class ClubEvent(QtWidgets.QMainWindow):
         super(ClubEvent,self).__init__()
         uic.loadUi("create_Event.ui",self)
         self.show()
+        self.CreateButton.clicked.connect(self.CreateEvent)
+
+    
+    
+    def CreateEvent(self):
+            # EventAdminId += 1
+            # EventClubID += 1
+            EventName = self.EventNameLine.text()
+            Event_ID = self.EventIDLine.text()
+            description = self.EventDescriptionLine.text()
+            Event_funds = self.FundsLine.text()
+            Related_Admin = self.AdminAddLine.text()
+            Related_Club = self.ClubAssociatted.text()
+            EventAdminID = Event_ID + str(Related_Admin)
+            EventClubID = EventName + str(Related_Club)
+
+            selected_date = self.EventDateLine.date().toPyDate()
+
+            # Validate inputs if needed
+            if not (EventName and Event_ID.isdigit() and description and Event_funds.isdigit()):
+                print("Invalid input. Please check your club details.")
+                QMessageBox.information(self, "Failure", "Kindly re-Check details")
+                return  # Exit the function if validation fails
+
+            # Insert data into the Event table
+            self.InsertEventDetails(Event_ID, EventName, description, Event_funds, Related_Admin, Related_Club, selected_date, EventClubID, EventAdminID)
+
+    def InsertEventDetails(self,Event_ID, EventName, description, Event_funds, Related_Admin, Related_Club, selected_date, EventClubID, EventAdminID):
+        try:
+                connection = pyodbc.connect(connection_string)
+                cursor = connection.cursor()
+
+                # Assuming the Club table has columns [EventID], [[Description]], Password
+                # You may need to adjust this query based on your actual table structure
+                query = f"INSERT INTO Clubs ([[EventID]], [[EventName]], [[Description]], [[EventDate]], [[Funds]]) VALUES (?, ?, ?, ?, ?)"
+                cursor.execute(query, (Event_ID, EventName, description, selected_date, Event_funds))
+                # connection.commit()
+
+                query_event_club = f"INSERT INTO Events_Club ([EventClubID], [EventID], [ClubID]) VALUES (?, ?, ?)"
+                cursor.execute(query_event_club, (EventClubID, Event_ID, Related_Club))
+                # connection.commit()
+
+                query_event_admin = f"INSERT INTO Event_Admin ([EventAdminID], [EventID], [AdminID]) VALUES (?, ?, ?)"
+                cursor.execute(query_event_admin, (EventAdminID, Event_ID, Related_Admin))
+                # connection.commit()
+
+                # Subtract event funds from respective club funds
+                query_update_funds = f"UPDATE Clubs SET [Funds] = [Funds] - ? WHERE [ClubID] = ?"
+                cursor.execute(query_update_funds, (Event_funds, Related_Club))
+                connection.commit()
+
+                QMessageBox.information(self, "Success", "Club created successfully!")
+
+        except Exception as e:
+                QMessageBox.critical(self, "Error", f"Error creating club account: {str(e)}")
+
+        finally:
+                if connection:
+                    connection.close()
+
+
+
 
 class ViewEvent(QtWidgets.QMainWindow):
     def __init__(self):
