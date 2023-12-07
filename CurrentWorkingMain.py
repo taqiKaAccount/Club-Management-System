@@ -48,6 +48,30 @@ def showTable(tableName):
     cursor.close()
     connection.close()
 
+def addFunds():
+    # displays the table you want on the terminal
+    connection = pyodbc.connect(connection_string)
+    cursor = connection.cursor()
+    # Execute the SQL query to get the current database name
+    try:
+        cursor = connection.cursor()
+
+        # Alter table to add the 'Funds' column
+        alter_query = '''ALTER TABLE [dbo].[Clubs]
+                        ADD Funds DECIMAL(10, 2)'''
+
+        cursor.execute(alter_query)
+        connection.commit()
+        print("Column 'Funds' added successfully!")
+
+    except Exception as e:
+        print(f"Error adding column: {str(e)}")
+
+    finally:
+        cursor.close
+        connection.close()
+
+
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
@@ -57,6 +81,8 @@ class MainWindow(QtWidgets.QMainWindow):
         self.pushButton.clicked.connect(lambda: self.CreateAcc(1)) #admin
         self.pushButton_2.clicked.connect(lambda: self.CreateAcc(2)) #student
         self.LoginButton.clicked.connect(self.login)
+
+        showTable("Admin")
         
         
     def CreateAcc(self, enable_num):
@@ -334,7 +360,44 @@ class ClubCreation(QtWidgets.QMainWindow):
         super(ClubCreation,self).__init__()
         uic.loadUi("Club_Registration_4.ui",self)
         self.show()
-        
+
+        self.CreateClubButton.clicked.connect(self.CreateClub)
+    
+    def CreateClub(self):
+            club_name = self.itemAddName.text()
+            club_ID = self.ItemAddID.text()
+            description = self.Clubdescription.text()
+            # admin_email = self.Admin_Email.text()
+
+            # Validate inputs if needed
+            if not (club_name and club_ID.isdigit() and description):
+                print("Invalid input. Please check your club details.")
+                QMessageBox.information(self, "Failure", "Kindly re-Check details")
+                return  # Exit the function if validation fails
+
+            # Insert data into the Admin table
+            self.InsertClubDetails(club_ID, club_name, description)
+
+    def InsertClubDetails(self,club_ID, club_name, description):
+        try:
+                connection = pyodbc.connect(connection_string)
+                cursor = connection.cursor()
+
+                # Assuming the Admin table has columns AdminID, Username, Password
+                # You may need to adjust this query based on your actual table structure
+                query = f"INSERT INTO Clubs ([ClubID], [ClubName], [description]) VALUES (?, ?, ?)"
+                cursor.execute(query, (club_ID, club_name, description))
+                connection.commit()
+
+                QMessageBox.information(self, "Success", "Club created successfully!")
+
+        except Exception as e:
+                QMessageBox.critical(self, "Error", f"Error creating admin account: {str(e)}")
+
+        finally:
+                if connection:
+                    connection.close()
+
 class ClubEvent(QtWidgets.QMainWindow):
     def __init__(self):
         super(ClubEvent,self).__init__()
